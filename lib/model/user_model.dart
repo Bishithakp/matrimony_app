@@ -9,6 +9,7 @@ List<UserModel> userModelFromJson(String str) => List<UserModel>.from(json.decod
 String userModelToJson(List<UserModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class UserModel {
+  bool isFavorite;
     int userId;
     String username;
     String email;
@@ -28,7 +29,7 @@ class UserModel {
     String? education;
     String? work;
     String relationshipStatus;
-    Gender gender;
+    String gender;
     Pronouns pronouns;
     List<String> interests;
     String coverPhoto;
@@ -39,6 +40,7 @@ class UserModel {
     List<CustomField> customFields;
 
     UserModel({
+       this.isFavorite=false,
         required this.userId,
         required this.username,
         required this.email,
@@ -73,13 +75,14 @@ class UserModel {
         userId: json["userId"],
         username: json["username"],
         email: json["email"],
-        profilePic: json["profilePic"],
+        profilePic: "https://c.wallhere.com/photos/a7/88/Lidia_Savoderova_model_face_profile_women_brunette_brown_eyes_ponytail-1215675.jpg!d",
+        //json["profilePic"],
         bio: json["bio"],
         homepage: json["homepage"],
-        hobbies: List<String>.from(json["hobbies"].map((x) => x)),
+        hobbies: List<String>.from(json["hobbies"].map((x) => x))==null?[]:List<String>.from(json["hobbies"].map((x) => x)),
         fullName: json["fullName"],
         location: json["location"],
-        birthDate: json["birthDate"],
+        birthDate: json["birthDate"]==null?'': json["birthDate"],
         followersCount: json["followersCount"],
         followingCount: json["followingCount"],
         postsCount: json["postsCount"],
@@ -87,9 +90,9 @@ class UserModel {
         verifiedStatus: json["verifiedStatus"],
         languages: List<String>.from(json["languages"].map((x) => x)),
         education: json["education"],
-        work: json["work"],
+        work: json["work"]==null?'':json["work"],
         relationshipStatus: json["relationshipStatus"],
-        gender: genderValues.map[json["gender"]]!,
+        gender:json["gender"],
         pronouns: pronounsValues.map[json["pronouns"]]!,
         interests: List<String>.from(json["interests"].map((x) => x)),
         coverPhoto: json["coverPhoto"],
@@ -120,7 +123,7 @@ class UserModel {
         "education": education,
         "work": work,
         "relationshipStatus": relationshipStatus,
-        "gender": genderValues.reverse[gender],
+        "gender": gender,
         "pronouns": pronounsValues.reverse[pronouns],
         "interests": List<dynamic>.from(interests.map((x) => x)),
         "coverPhoto": coverPhoto,
@@ -172,17 +175,7 @@ class CustomField {
     };
 }
 
-enum Gender {
-    DIVERSE,
-    FEMALE,
-    MALE
-}
 
-final genderValues = EnumValues({
-    "Diverse": Gender.DIVERSE,
-    "Female": Gender.FEMALE,
-    "Male": Gender.MALE
-});
 
 class PrivacySettings {
     bool showEmail;

@@ -1,13 +1,11 @@
 import 'dart:js_util';
 
-
 import 'package:flutter/material.dart';
 
 import '../model/user_error.dart';
 import '../model/user_model.dart';
 import '../repo/api_status.dart';
 import '../repo/user_service.dart';
-
 
 class UsersViewmodel extends ChangeNotifier {
   bool _loading = true;
@@ -17,33 +15,40 @@ class UsersViewmodel extends ChangeNotifier {
   bool get loading => _loading;
   List<UserModel> get usersList => _usersList;
   UserError get userError => _userError;
-  
+  List<UserModel> favorite = [];
+  List<UserModel> results = [];
+
   // final TextEditingController controllerName = TextEditingController();
   // final TextEditingController controllerEmail = TextEditingController();
   // final TextEditingController controller1City = TextEditingController();
   UsersViewmodel() {
     getUsers();
   }
- // setnewUser() {
-    //usersList.add(newUser);
-  
-   // notifyListeners();
-    // controllerName.clear();
-    // controllerEmail.clear();
-    // controller1City.clear();
- // }
+  setfavoriteTap({required UserModel userModel}) {
+    for (var i in usersList) {
+      if (i.userId == userModel.userId) {
+        i.isFavorite = !i.isFavorite;
+        if (i.isFavorite) {
+          favorite.add(i);
+        } else {
+          favorite.remove(i);
+        }
+        notifyListeners();
+      }
+    }
+  }
 
-  // setName(String name) {
-  //   newUser.name = name;
-  // }
-
-  // setEmail(String email) {
-  //   newUser.email = email;
-  // }
-
-  // setCity(String city) {
-  //   newUser.address.city = city;
-  // }
+  void searchRecipe(String value) {
+    results.clear();
+    for (var element in usersList) {
+      if (element.fullName.toLowerCase().contains(value.toLowerCase()) ||
+          element.work!.toLowerCase().contains(value.toLowerCase())) {
+        results.add(element);
+       
+        notifyListeners();
+      }
+    }
+  }
 
   setLoading(bool loadingStatus) async {
     _loading = loadingStatus;
@@ -58,9 +63,8 @@ class UsersViewmodel extends ChangeNotifier {
     setLoading(true);
 
     var res = await UserSevices.getUsersApi();
-  
+
     if (res is Success) {
-      
       setUserListModel(data: res.response as List<UserModel>);
     }
     if (res is Failure) {
@@ -72,10 +76,7 @@ class UsersViewmodel extends ChangeNotifier {
   }
 
   setUserListModel({required List<UserModel> data}) async {
-    
     _usersList = data;
-    
-  
 
     notifyListeners();
   }

@@ -58,10 +58,23 @@ class DeatilsPage extends StatelessWidget {
                       children: userModel.languages
                           .map((e) => userInterestCard(e))
                           .toList()),
-                  userDetails(heading: 'Education', value: userModel.education!),
-                  userDetails(heading: 'Relationship Status', value: userModel.relationshipStatus),
-                  userDetails(heading: 'Gender', value: userModel.gender.toString()),
-                  userDetails(heading: 'Work', value: userModel.work!)
+                  userModel.education == null
+                      ? Container()
+                      : userDetails(
+                          heading: 'Education', value: userModel.education!),
+                  userDetails(
+                      heading: 'Relationship Status',
+                      value: userModel.relationshipStatus),
+                  Visibility(
+                    child:
+                        userDetails(heading: 'Gender', value: userModel.gender),
+                    visible: userModel.gender != null,
+                  ),
+                   Visibility(
+                          child: userDetails(
+                              heading: 'Work', value: userModel.work!),
+                          visible: userModel.work != "",
+                        ),
                 ],
               ),
             ),
@@ -71,16 +84,16 @@ class DeatilsPage extends StatelessWidget {
     );
   }
 
-  Row userDetails({required String heading,required String value }) {
+  Row userDetails({required String heading, required String value}) {
     return Row(
-                  children: [
-                    Headings(label: heading + ':'),
-                    Text(
-                      value,
-                      style: TextStyle(color: appmainColorlight),
-                    )
-                  ],
-                );
+      children: [
+        Headings(label: heading + ':'),
+        Text(
+          value,
+          style: TextStyle(color: appmainColorlight),
+        )
+      ],
+    );
   }
 
   Text Headings({required String label}) {
@@ -94,8 +107,7 @@ class DeatilsPage extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
-          color: appmainColorlight,
-          borderRadius: BorderRadius.circular(10)),
+          color: appmainColorlight, borderRadius: BorderRadius.circular(10)),
       child: Text(
         e,
         style: TextStyle(color: Colors.white),

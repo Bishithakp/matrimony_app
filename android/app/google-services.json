@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "546303432184",
+    "project_id": "dating-app-3878b",
+    "storage_bucket": "dating-app-3878b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:546303432184:android:c342c870eebc558d56b20d",
+        "android_client_info": {
+          "package_name": "com.datingapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-5cbmfB-mkOwub3pMl8a4IiLyCMvuKt0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:546303432184:android:549ecfa598e6ac6b56b20d",
+        "android_client_info": {
+          "package_name": "com.example.matrimony_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-5cbmfB-mkOwub3pMl8a4IiLyCMvuKt0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:matrimony_app/view/screens/favorite_page.dart';
+import 'package:matrimony_app/view/screens/search_page.dart';
 
   
 import 'home_page.dart';
@@ -14,7 +15,7 @@ class NavigationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     const List<Widget> pages = <Widget>[
       HomePage(),
-      FavoritePage(),
+      SearchPage(),
       ProfilePage(),
     ];
 
@@ -25,7 +26,7 @@ class NavigationScreen extends StatelessWidget {
           child: pages.elementAt(selectedIndex),
         ),
         bottomNavigationBar: Container(
-          margin: const EdgeInsets.all(25),
+          margin: const EdgeInsets.only(left: 5,right: 5,bottom: 5),
           padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 18),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(50), color: Colors.black),
@@ -33,11 +34,11 @@ class NavigationScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 CustomBottomNavigationBarIcon(
-                  icon: Icons.home,
+                  icon: Icons.favorite,
                   index: 0,
                 ),
                 CustomBottomNavigationBarIcon(
-                  icon: Icons.favorite,
+                  icon: Icons.search,
                   index: 1,
                 ),
                 CustomBottomNavigationBarIcon(

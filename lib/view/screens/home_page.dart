@@ -3,6 +3,7 @@ import 'package:matrimony_app/constants.dart';
 import 'package:provider/provider.dart';
 
 import '../../view_model/user_view_model.dart';
+import '../widgets/app_loading.dart';
 import '../widgets/user_card.dart';
 
 class HomePage extends StatelessWidget {
@@ -36,8 +37,8 @@ class HomePage extends StatelessWidget {
                       children: [
                         Text(
                           'hello,jason',
-                          style:
-                              appTextStyle.copyWith(fontWeight: FontWeight.bold),
+                          style: appTextStyle.copyWith(
+                              fontWeight: FontWeight.bold),
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -49,11 +50,13 @@ class HomePage extends StatelessWidget {
                             ),
                             Text(
                               'bali',
-                              style: appTextStyle.copyWith(color: appBlackcolor),
+                              style:
+                                  appTextStyle.copyWith(color: appBlackcolor),
                             ),
                             Text(
                               'Indonesia',
-                              style: appTextStyle.copyWith(color: appBlackcolor),
+                              style:
+                                  appTextStyle.copyWith(color: appBlackcolor),
                             )
                           ],
                         )
@@ -101,26 +104,35 @@ class HomePage extends StatelessWidget {
                 SizedBox(
                   height: 5,
                 ),
-                Expanded(
-                  child: GridView.builder(
-                      shrinkWrap: true,
-                      physics: const ScrollPhysics(),
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2, // number of items in each row
-                        mainAxisSpacing: 12.0, // spacing between rows
-                        crossAxisSpacing: 8.0, // spacing between columns
-                      ),
-                      itemCount: mod.usersList.length,
-                      itemBuilder: (BuildContext ctx, index) {
-                        return UserCard(usermodel: mod.usersList[index],);
-                      }),
-                ),
+                mod.loading
+                    ? const Apploading()
+                    : mod.userError.code != 0
+                        ? Text(mod.userError.message)
+                        : Expanded(
+                            child: GridView.builder(
+                                shrinkWrap: true,
+                                physics: const ScrollPhysics(),
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount:
+                                      2, // number of items in each row
+                                  mainAxisSpacing: 12.0, // spacing between rows
+                                  crossAxisSpacing:
+                                      8.0, // spacing between columns
+                                ),
+                                itemCount: mod.usersList.length,
+                                itemBuilder: (BuildContext ctx, index) {
+                                  return UserCard(
+                                    usermodel: mod.usersList[index], 
+                                    favoriteTap:()=> mod.setfavoriteTap(userModel: mod.usersList[index]),
+                                  );
+                                }),
+                          ),
               ],
             ),
           )),
         ),
       );
-  });
+    });
   }
 }
